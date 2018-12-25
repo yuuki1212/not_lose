@@ -29,9 +29,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_delete')->comment('削除フラグ');
             $table->string('deleted_user')->nullable()->comment('削除者');
             $table->dateTime('deleted_at')->nullable()->comment('削除日時');
-            $table->string('created_user')->comment('作成者');
             $table->dateTime('created_at')->comment('作成日時');
-            $table->string('updated_user')->comment('更新者');
             $table->dateTime('updated_at')->comment('更新日時');
             $table->rememberToken();
         });

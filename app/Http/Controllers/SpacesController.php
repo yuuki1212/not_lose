@@ -10,6 +10,9 @@ class SpacesController extends Controller
 {
     //
     public function getSpaces(Request $request){
+        $rules = [
+            '' => '',
+        ];
 
         $v = Validator::make($request->all(), $rules);
 
