@@ -13,8 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group(['namespace' => 'Api'], function () {
+    // ユーザー新規作成
+    Route::post('/user/register', 'Auth\RegisterController@register');
+    Route::group(['middleware' => 'auth:api'], function () {
+
+    });
+});
+
+// ユーザー情報取得
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-//Route::post('/session/login', '');
