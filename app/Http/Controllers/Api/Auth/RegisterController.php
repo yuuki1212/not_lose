@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Http\Controllers\Api\ApiBaseController;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Client;
 
-class RegisterController extends Controller
+class RegisterController extends ApiBaseController
 {
     /**
      * 新規登録
      * @param Request $request
-     * @return
+     * @return json
      */
     public function register(Request $request)
     {
@@ -26,8 +25,7 @@ class RegisterController extends Controller
         $v = $this->validator($data);
         if ($v->fails()) {
             // バリデーションエラーの場合、エラーレスポンス
-            $jsonError = response()->json($v->errors()->all(), 400);
-            return Response::json($jsonError);
+            return $this->failure($v->errors()->all());
         }
 
         // ユーザー新規登録処理

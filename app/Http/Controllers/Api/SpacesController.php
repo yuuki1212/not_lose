@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\ApiBaseController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class SpacesController extends Controller
+class SpacesController extends ApiBaseController
 {
     //
     public function getSpaces(Request $request){
@@ -21,7 +21,7 @@ class SpacesController extends Controller
 
         if ($v->fails()) {
             // バリデーションエラーの場合、エラーレスポンス
-            return redirect()->back()->withErrors($v->errors())->withInput();
+            return $this->failure($v->errors()->all());
         }
 
         // ユーザー新規登録処理
