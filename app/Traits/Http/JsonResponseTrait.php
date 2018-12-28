@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Traits\Http;
 /**
  * Created by PhpStorm.
  * User: kirin-dev31
