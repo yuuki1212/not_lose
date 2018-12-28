@@ -9,11 +9,20 @@ use Illuminate\Http\Request;
 
 class SpacesController extends ApiBaseController
 {
-    //
-    public function getSpaces(Request $request){
+    /**
+     * Spaceの取得
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $data = $request->all();
+
         // バリデーションルール
         $rules = [
-            '' => '',
+            'limit'     => 'required|numeric|max:1000',
+            'category_id'  => 'numeric',
+            'usages_id'    => 'numeric'
         ];
 
         // バリデーションチェック
@@ -24,17 +33,17 @@ class SpacesController extends ApiBaseController
             return $this->failure($v->errors()->all());
         }
 
-        // ユーザー新規登録処理
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'is_delete' => 0
-        ]);
+
 
         // 新規登録イベント
         event(new Registered($user));
 
         //
+    }
+
+
+    public function add(Request $request)
+    {
+
     }
 }
