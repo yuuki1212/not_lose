@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\ApiBaseController;
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Client;
 
 class RegisterController extends ApiBaseController
@@ -47,13 +45,13 @@ class RegisterController extends ApiBaseController
             'oauth/token',
             'POST'
         );
-        return Route::dispatch($token);
+        return \Route::dispatch($token);
     }
 
     /**
      * バリデーションチェック
      * @param Request $data
-     * @return array
+     * @return \Illuminate\Validation\Validator
      */
     private function validator($data)
     {
@@ -63,7 +61,7 @@ class RegisterController extends ApiBaseController
             'password' => 'required|string|min:6|confirmed',
         ];
 
-        return Validator::make($data, $rules);
+        return \Validator::make($data, $rules);
     }
 
     /**

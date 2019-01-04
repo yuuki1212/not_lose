@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\Space;
+use App\Models\Space;
 use Illuminate\Http\Request;
 
 class SpacesController extends ApiBaseController
@@ -30,7 +30,6 @@ class SpacesController extends ApiBaseController
             // バリデーションエラーの場合、エラーレスポンス
             return $this->failure($v->errors()->all());
         }
-
         $spaces = Space::take($data['limit'] == null ? 50 : $data['limit']);
         if ($data['category_id'] != null) {
             $spaces->where('category_id', $data['category_id']);
