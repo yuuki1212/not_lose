@@ -43,6 +43,11 @@ class SpacesController extends ApiBaseController
     }
 
 
+    /**
+     * @param Request $request
+     * @param $main_no
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add(Request $request, $main_no)
     {
         $data = $request->all();

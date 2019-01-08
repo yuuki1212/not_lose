@@ -83,5 +83,5 @@ php artisan key:generate
 composer update
 
 # フォルダ権限の変更
-chmod -R 777 /vagrant//site/bootstrap/cache
-chmod -R 777 /vagrant/site/storage
+chmod -R 777 /vagrant/week_trend/bootstrap/cache
+chmod -R 777 /vagrant/week_trend/storage

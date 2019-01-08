@@ -47,14 +47,13 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate"
+            "@php artisan key:generate",
+            "@php artisan migrate",
+            "@php artisan passport:install"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover",
-            "@php artisan config:cache",
-            "@php artisan route:cache",
-            "@php artisan view:cache",
             "@php artisan optimize"
         ]
     },
