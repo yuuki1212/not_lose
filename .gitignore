@@ -19,3 +19,8 @@ vendor/
 .gitattributes
 .env
 .idea/week_trend.iml
+storage/oauth-public.key
+storage/oauth-private.key
+composer.lock
+_ide_helper_models.php
+_ide_helper.php
