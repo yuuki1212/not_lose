@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Space;
 use Illuminate\Http\Request;
 
-class SpacesController extends ApiBaseController
+class HomeController extends ApiBaseController
 {
     /**
      * Spaceの取得
