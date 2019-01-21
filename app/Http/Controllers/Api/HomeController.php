@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Item;
 use App\Models\Space;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,11 @@ class HomeController extends ApiBaseController
 
         // バリデーションルール
         $rules = [
-            'limit' => 'required|numeric|max:1000',
+            'user_id' => 'required|numeric',
             'category_id' => 'numeric',
-            'usages_id' => 'numeric'
+            'usages_id' => 'numeric',
+            'main_no' => 'numeric',
+            'tree_no' => 'required_with:main_no|numeric'
         ];
 
         // バリデーションチェック
@@ -30,14 +33,23 @@ class HomeController extends ApiBaseController
             // バリデーションエラーの場合、エラーレスポンス
             return $this->failure($v->errors()->all());
         }
-        $spaces = Space::take($data['limit'] == null ? 50 : $data['limit']);
+        $spaces = Space::where('user_id', $data['user_id']);
+        $items = Item::where('user_id', $data['user_id']);
         if ($data['category_id'] != null) {
             $spaces->where('category_id', $data['category_id']);
+            $items->where('category_id', $data['category_id']);
         }
         if ($data['usages_id'] != null) {
             $spaces->where('usages_id', $data['usages_id']);
+            $items->where('usages_id', $data['usages_id']);
         }
         $spaces->get();
+        $items->get();
+
+        $result = [
+            'space' => $spaces,
+            'item' => $items
+        ];
 
         return $this->success($spaces);
     }

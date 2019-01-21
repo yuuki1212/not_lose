@@ -15,7 +15,8 @@ class UpdateItemTable extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             //
-            $table->string('url');
+            $table->string('url')->nullable()->comment('画像保存先URL');
+            $table->integer('user_id')->nullable()->comment('ユーザーID');
         });
     }
 
@@ -29,6 +30,7 @@ class UpdateItemTable extends Migration
         Schema::table('items', function (Blueprint $table) {
             //
             $table->dropColumn('url');
+            $table->dropColumn('user_id');
         });
     }
 }
