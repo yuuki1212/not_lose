@@ -17,7 +17,7 @@ Route::group(['namespace' => 'Api'], function () {
     // ユーザー新規作成
     Route::post('/user/register', 'Auth\RegisterController@register');
     Route::group(['middleware' => 'auth:api'], function () {
-        Route::get('/home', 'HomeController@index');
+        Route::get('/home/{space_id}', 'HomeController@index');
         Route::get('/home/add/{space_id}', 'HomeController@add');
     });
 });

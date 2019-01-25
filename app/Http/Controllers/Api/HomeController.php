@@ -13,13 +13,14 @@ class HomeController extends ApiBaseController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $space_id)
     {
         $data = $request->all();
 
         // バリデーションルール
         $rules = [
             'user_id' => 'required|numeric',
+            'space_id' => 'numeric',
             'category_id' => 'numeric',
             'usages_id' => 'numeric',
             'main_no' => 'numeric',
@@ -35,6 +36,10 @@ class HomeController extends ApiBaseController
         }
         $spaces = Space::where('user_id', $data['user_id']);
         $items = Item::where('user_id', $data['user_id']);
+        if ($data['space_id'] != null && $data['space_id'] != 0) {
+            $spaces->where('space_id', $data['space_id']);
+            $items->where('space_id', $data['space_id']);
+        }
         if ($data['category_id'] != null) {
             $spaces->where('category_id', $data['category_id']);
             $items->where('category_id', $data['category_id']);
@@ -46,12 +51,16 @@ class HomeController extends ApiBaseController
         $spaces->get();
         $items->get();
 
-        $result = [
-            'space' => $spaces,
-            'item' => $items
-        ];
-
-        return $this->success($spaces);
+        $result = [];
+        foreach ($spaces as $space) {
+            $list = ['space' => $space];
+            array_merge($result, $list);
+        }
+        foreach ($items as $item) {
+            $list = ['item' => $item];
+            array_merge($result, $list);
+        }
+        return $this->success($result);
     }
 
 
